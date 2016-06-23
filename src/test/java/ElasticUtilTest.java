@@ -17,6 +17,16 @@ public class ElasticUtilTest {
 	
 	@Test
 	public void testCreateIndex(){
-		eu.createIndex("test3");
+		eu.createIndex("library");
+	}
+	
+	@Test
+	public void testCreateBook() throws Exception{
+		eu.createBookMapping("library", "book");
+	}
+	
+	@Test
+	public void testDeleteIndex(){
+		eu.deleteIndex("library");
 	}
 }

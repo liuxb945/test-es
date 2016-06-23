@@ -5,9 +5,16 @@ import java.net.UnknownHostException;
 
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequestBuilder;
 import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
+import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
+import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequest;
+import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsResponse;
+import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequest;
 import org.elasticsearch.client.Client;
+import org.elasticsearch.client.Requests;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.elasticsearch.common.xcontent.XContentFactory;
 
 public class ElasticUtil {
 	private Client client;
@@ -66,4 +73,35 @@ public class ElasticUtil {
 			System.err.println("Index creation failed.");
 		}
 		}
+	
+	public void createBookMapping(String indices, String mappingType)
+			throws Exception {
+ 
+ XContentBuilder builder = XContentFactory.jsonBuilder().startObject().startObject(mappingType).startObject("properties")	 
+ .startObject("author").field("type", "string").field("store", "yes").endObject()		 
+ .startObject("available").field("type", "boolean").field("store", "yes").endObject()
+ .startObject("characters").field("type", "string").field("store", "yes").endObject()
+ .startObject("copies").field("type", "long").field("store", "yes").endObject()
+ .startObject("description").field("type", "string").field("store", "yes").endObject()
+ .startObject("otitle").field("type", "string").field("store", "yes").endObject()
+ .startObject("section").field("type", "long").field("store", "yes").endObject()
+ .startObject("tags").field("type", "string").field("store", "yes").endObject()
+ .startObject("title").field("type", "string").field("store", "yes").endObject()
+ .startObject("year").field("type", "long").field("store", "yes").endObject()
+ .endObject().endObject().endObject();
+PutMappingRequest mapping = Requests.putMappingRequest(indices)
+		.type(mappingType).source(builder);
+ client.admin().indices().putMapping(mapping).actionGet();
+ 
+	}
+	
+	public void deleteIndex(String indexName) {
+        IndicesExistsResponse indicesExistsResponse = client.admin().indices()
+                .exists(new IndicesExistsRequest(new String[] { indexName }))
+                .actionGet();
+        if (indicesExistsResponse.isExists()) {
+            client.admin().indices().delete(new DeleteIndexRequest(indexName))
+                    .actionGet();
+        }
+    }
 }
