@@ -80,7 +80,15 @@
 		<artifactId>fastjson</artifactId>
 		<version>1.1.40</version>
 	</dependency>
-  <!-- 阿里json结束 -->  
+  <!-- 阿里json结束 -->
+  
+  <!-- https://mvnrepository.com/artifact/junit/junit -->
+<dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>4.8.1</version>
+</dependency>
+    
   </dependencies>
   
   

@@ -292,6 +292,15 @@ public class ElasticSearch {
 		  return  it.next() ;
     }
     
+    private byte[] getIP(String addr){
+    	String[] strs=addr.split(".");
+    	byte[] bs=new byte[strs.length];
+    	for(int i=0;i<bs.length;i++){
+    		bs[i]=Byte.parseByte(strs[i]);
+    	}
+    	return bs;
+    }
+    
     //"client.transport.sniff", true  集群下用
     private  Client createClient(String cluster, String addresses) {
 //		Settings settings = ImmutableSettings.settingsBuilder()
