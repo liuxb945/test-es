@@ -570,7 +570,7 @@ PutMappingRequest mapping = Requests.putMappingRequest(indices)
 		String[] addressArray = addresses.split(",");
 		for (String address : addressArray) {
 			String[] addrArr = address.split(":");
-			byte[] bs=new byte[]{(byte)192,(byte)168,(byte)187,(byte)130};
+			byte[] bs=new byte[]{(byte)192,(byte)168,(byte)204,(byte)131};
 			try {
 				client.addTransportAddress(new InetSocketTransportAddress(
 						InetAddress.getByAddress(bs), Integer.valueOf(addrArr[1])));
