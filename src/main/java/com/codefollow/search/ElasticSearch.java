@@ -49,7 +49,7 @@ import com.alibaba.fastjson.TypeReference;
 /**
  * 搜索基类
  * https://github.com/elastic/elasticsearch
- * @author hezhengjun
+ * @author 
  */
 public class ElasticSearch {
     
